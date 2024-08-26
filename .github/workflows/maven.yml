@@ -1,33 +1,77 @@
-name: Java Maven Build & Publish Artifact
+name: DEV
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] #replace with desired branch
   # pull_request:
   #   branches: [ "main" ]
 
 jobs:
-  build_test:
-
+  Plugin-Build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 17
+    - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '8'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      # run: mvn -B package --file pom.xml
-      run: mvn clean package
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.3.6
-      with:
-        name: Publish JAR
-        path: target/*.jar
-        if-no-files-found: error
+
+    - name: Build and Package
+      run: mvn -version && java -version
+    
+    - name: Build and Package
+      run: mvn -f ./pom.xml clean package  #replace
+
+    - name: Maven Test
+      run: mvn -f ./pom.xml test #replace
+
+    - name: List target folder
+      run: ls target
+
+  Workflow-Packaging:
+    needs: [Plugin-Build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: List target folder
+      run: ls target
+      
+    - name: Prepare and Package Workflows
+      working-directory: config
+      run: workflow.sh properties/<Name of DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
+
+  Settings-Packaging:
+    needs: [Workflow-Packaging]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Package Settings
+      working-directory: .
+      run: ls
+
+  Manifest-Packaging:
+    needs: [Settings-Packaging]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Package Manifest
+      working-directory: .
+      run: ls
+
+  Publish-Artifacts:
+    needs: [Manifest-Packaging]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload JAR Artifacts
+        uses: actions/upload-artifact@v4.3.6
+        with:
+          name: Publish JAR
+          path: target/*.jar
+
+      - name: Upload Workflow Files
+        uses: actions/upload-artifact@v4.3.6
+        with:
+          name: Publish Workflow Files
+          path: config/workflows/replaced/*.json
           
       
   # publish-job:

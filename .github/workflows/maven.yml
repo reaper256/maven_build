@@ -27,7 +27,7 @@ jobs:
     - name: Upload JAR Artifacts
       uses: actions/upload-artifact@v4.3.6
       with:
-        name: Publish JAR
+        name: Artifact-JAR
         path: target/*.jar  #replace
 
 
@@ -43,7 +43,7 @@ jobs:
     - name: Upload Workflow Files
       uses: actions/upload-artifact@v4.3.6
       with:
-        name: Publish Workflow Files
+        name: Artifact-WorkflowFiles
         path: config/workflows/replaced/*.json  #replace as required
 
 
@@ -59,7 +59,7 @@ jobs:
   #   - name: Upload Setting Files
   #     uses: actions/upload-artifact@v4.3.6
   #     with:
-  #       name: Publish Setting Files
+  #       name: Artifact-SettingFiles
   #       path: config/workflows/replaced/*.json #replace
 
 
@@ -75,7 +75,7 @@ jobs:
   #   - name: Upload Manifest File
   #     uses: actions/upload-artifact@v4.3.6
   #     with:
-  #       name: Publish Manifest File
+  #       name: Artifact-ManifestFiles
   #       path: config/workflows/replaced/*.json #replace
 
   Deploy:

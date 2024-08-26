@@ -17,9 +17,6 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
         cache: maven
-
-    - name: Build and Package
-      run: mvn -version && java -version
     
     - name: Build and Package
       run: mvn -f ./pom.xml clean package  #replace
@@ -31,16 +28,14 @@ jobs:
       uses: actions/upload-artifact@v4.3.6
       with:
         name: Publish JAR
-        path: target/*.jar
+        path: target/*.jar  #replace
 
 
   Workflow-Packaging:
     needs: [Plugin-Build]
     runs-on: ubuntu-latest
     steps:
-    - name: List target folder
-      run: ls target
-      
+    - uses: actions/checkout@v3
     - name: Prepare and Package Workflows
       working-directory: config
       run: workflow.sh properties/<Name of DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
@@ -49,35 +44,62 @@ jobs:
       uses: actions/upload-artifact@v4.3.6
       with:
         name: Publish Workflow Files
-        path: config/workflows/replaced/*.json
+        path: config/workflows/replaced/*.json  #replace as required
 
-  Settings-Packaging:
-    needs: [Workflow-Packaging]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Package Settings
-      working-directory: .
-      run: ls
 
-  Manifest-Packaging:
-    needs: [Settings-Packaging]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Package Manifest
-      working-directory: .
-      run: ls
-
-  # Publish-Artifacts:
-  #   needs: [Manifest-Packaging]
+  # Settings-Packaging:
+  #   needs: [Workflow-Packaging]
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - name: Upload JAR Artifacts
-  #       uses: actions/upload-artifact@v4.3.6
-  #       with:
-  #         name: Publish JAR
-  #         path: target/*.jar
+  #   - uses: actions/checkout@v3
+  #   - name: Package Settings
+  #     working-directory: .
+  #     run: ls
+
+  #   - name: Upload Setting Files
+  #     uses: actions/upload-artifact@v4.3.6
+  #     with:
+  #       name: Publish Setting Files
+  #       path: config/workflows/replaced/*.json #replace
 
 
+  # Manifest-Packaging:
+  #   needs: [Settings-Packaging]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Package Manifest
+  #     working-directory: .
+  #     run: ls
+
+  #   - name: Upload Manifest File
+  #     uses: actions/upload-artifact@v4.3.6
+  #     with:
+  #       name: Publish Manifest File
+  #       path: config/workflows/replaced/*.json #replace
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: [Plugin-Build, Workflow-Packaging] #, Settings-Packaging, Manifest-Packaging]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/download-artifact@v4
+
+    - name: Deploy Plugin
+      run: ls
+      
+    - name: Activate Plugin
+      run: ls
+      
+    # - name: Deploy Workflow
+    #   run: workflow-all.sh <path to downloaded substituted workflow json's> <RetailerName>
+      
+    - name: Deploy Settings
+      run: ls
+      
+    - name: Deploy Manifest
+      run: ls
+      
           
       
   # publish-job:

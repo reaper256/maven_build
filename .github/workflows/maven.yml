@@ -35,10 +35,10 @@ jobs:
     needs: [Plugin-Build]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Prepare and Package Workflows
-      working-directory: config
-      run: workflow.sh properties/<Name of DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
+    # - uses: actions/checkout@v3
+    # - name: Prepare and Package Workflows
+    #   working-directory: config
+    #   run: workflow.sh properties/<Name of DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
     
     - name: Upload Workflow Files
       uses: actions/upload-artifact@v4.3.6

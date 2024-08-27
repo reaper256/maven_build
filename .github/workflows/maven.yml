@@ -19,7 +19,7 @@ jobs:
         cache: maven
         
     - name: Build and Package
-      run: ./test.sh
+      run: bash ./test.sh
     
     - name: Build and Package
       run: mvn -f ./pom.xml clean package  #replace

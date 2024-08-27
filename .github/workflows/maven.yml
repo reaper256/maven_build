@@ -41,7 +41,7 @@ jobs:
     - uses: actions/checkout@v3
     # - name: Prepare and Package Workflows
     #   working-directory: config
-    #   run: workflow.sh properties/<Name of DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
+    #   run: bash render-workflows.sh <absolute path to DEV Property file.json> <Retailer Name> workflows/workflow1.json workflows/workflow2.json... #replace as required
     
     - name: Upload Workflow Files
       uses: actions/upload-artifact@v4.3.6
@@ -89,21 +89,7 @@ jobs:
     - uses: actions/download-artifact@v4
 
     - name: Deploy Plugin
-      run: ls
-      
-    - name: Activate Plugin
-      run: ls
-      
-    # - name: Deploy Workflow
-    #   run: workflow-all.sh <path to downloaded substituted workflow json's> <RetailerName>
-      
-    - name: Deploy Settings
-      run: ls
-      
-    - name: Deploy Manifest
-      run: ls
-      
-          
+      run: bash deploy.sh      
       
   # publish-job:
   #   runs-on: ubuntu-latest

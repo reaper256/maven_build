@@ -8,6 +8,7 @@ on:
 
 jobs:
   Plugin-Build:
+    environment: DEV
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -20,6 +21,8 @@ jobs:
         
     - name: Build and Package
       run: bash ./test.sh
+      env:
+        accountUsername: ${{ secrets.ACCOUNTUSERNAME }}
     
     - name: Build and Package
       run: mvn -f ./pom.xml clean package  #replace

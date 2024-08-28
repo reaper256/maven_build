@@ -1,0 +1,44 @@
+{
+  "account_id": "<accountId>",
+  "api_host": "",
+  "client_secret": "",
+  "account_username": "",
+  "account_password": "",
+  "replace_values": {
+  },
+  "retailers": [
+    {
+      "retailer": {
+        "retailer_id": 1,
+        "retailer_username": "",
+        "retailer_password": "",
+        "replace_values": {
+          "account": "",
+          "retailer.id": 1,
+          "inventory.retailer.id": 1,
+
+          "plugin.v2": "commonv2",
+          "plugin.location": "location",
+
+          "escalation.location": "REJCTLOC",
+
+          "network.cc": "CLICK_AND_COLLECT",
+          "network.hd": "HOME_DELIVERY",
+
+          "order.type.cc": "CC",
+          "order.type.hd": "HD",
+
+          "product.catalogue.ref": "PC:MASTER:1",
+          "product.catalogue.type": "MASTER",
+          "inventory.catalogue.ref": "DEFAULT:1",
+
+          "virtual.catalogue.ref.base": "BASE:1",
+          "virtual.catalogue.type.base": "BASE",
+
+          "virtual.catalogue.ref.ats": "ATS:1",
+          "virtual.catalogue.type.ats": "ATS"
+        }
+      }
+    }
+  ]
+}

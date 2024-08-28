@@ -4,6 +4,11 @@ on:
   push:
     branches: [ "main" ] #replace with desired branch
   workflow_dispatch:
+    inputs:
+      logLevel:
+      description: 'Log level'
+      required: true
+      type: boolean
   # pull_request:
   #   branches: [ "main" ]
 

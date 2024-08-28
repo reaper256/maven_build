@@ -3,6 +3,7 @@ name: DEV
 on:
   push:
     branches: [ "main" ] #replace with desired branch
+  workflow_dispatch:
   # pull_request:
   #   branches: [ "main" ]
 

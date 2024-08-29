@@ -98,9 +98,10 @@ jobs:
     - uses: actions/download-artifact@v4
 
     - name: Deploy Plugin
-      run: bash deploy.sh
+      run: bash deploy.sh #<absolute path to properties.json file>
       env:
         accountUsername: ${{ secrets.ACCOUNTUSERNAME }}
+        # accountPwd: ${{ secrets.ACCOUNTPWD }}
       
   # publish-job:
   #   runs-on: ubuntu-latest

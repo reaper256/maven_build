@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'
+        description: 'Plugin'
         required: true
         type: boolean
   # pull_request:
@@ -25,10 +25,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
         
-    - name: Build and Package
-      run: bash ./test.sh
-      env:
-        accountUsername: ${{ secrets.ACCOUNTUSERNAME }}
+    # - name: Build and Package
+    #   run: bash ./test.sh
+    #   env:
+    #     accountUsername: ${{ secrets.ACCOUNTUSERNAME }}
     
     - name: Build and Package
       run: mvn -f ./pom.xml clean package  #replace
@@ -98,7 +98,9 @@ jobs:
     - uses: actions/download-artifact@v4
 
     - name: Deploy Plugin
-      run: bash deploy.sh      
+      run: bash deploy.sh
+      env:
+        accountUsername: ${{ secrets.ACCOUNTUSERNAME }}
       
   # publish-job:
   #   runs-on: ubuntu-latest

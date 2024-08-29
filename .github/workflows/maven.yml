@@ -5,10 +5,22 @@ on:
     branches: [ "main" ] #replace with desired branch
   workflow_dispatch:
     inputs:
-      logLevel:
+      Plugin:
         description: 'Plugin'
         required: true
         type: boolean
+      Workflow:
+        description: 'Plugin'
+        required: true
+        type: boolean
+      # Plugin:
+      #   description: 'Plugin'
+      #   required: true
+      #   type: boolean
+      # Plugin:
+      #   description: 'Plugin'
+      #   required: true
+      #   type: boolean        
   # pull_request:
   #   branches: [ "main" ]
 
